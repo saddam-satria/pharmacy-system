@@ -35,12 +35,13 @@ $routes->setAutoRoute(true);
 // Views
 $routes->get('/', 'Home::index');
 $routes->get('/dashboard',  'Admin::index');
-$routes->get('/login', 'Login::index');
-
+$routes->get('/login', 'Users::renderLogin');
+$routes->get('/register', "Users::renderRegister");
+$routes->get('/patients', 'Patients::index');
 
 
 // Controllers
-
+$routes->post('/login', "Users::loginAction");
 
 
 /*
