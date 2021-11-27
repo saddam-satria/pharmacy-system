@@ -38,6 +38,8 @@ $routes->get('/dashboard',  'Admin::index');
 $routes->get('/login', 'Users::renderLogin');
 $routes->get('/register', "Users::renderRegister");
 $routes->get('/patients', 'Patients::index');
+$routes->get('/users', 'Users::index');
+$routes->get('/medicines', 'Medicines::index');
 
 
 // Controllers
