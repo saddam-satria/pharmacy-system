@@ -3,8 +3,7 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('dashboard'); ?>">
-
-        <div class="sidebar-brand-text mx-3">Sistem Apotek</div>
+        <div class="sidebar-brand-text mx-3 text-capitalize"><i class="fas fa-hospital-symbol"></i> pharmacy</div>
     </a>
 
     <!-- Divider -->
@@ -29,19 +28,19 @@
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="<?= base_url('patients') ?>" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-            <i class="fas fa-fw fa-users-medical"></i>
-            <span class="text-capitalize">Patient</span>
+            <i class="fas fa-users-medical"></i>
+            <span class="text-capitalize">Patients</span>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link collapsed" href="<?= base_url('users') ?>" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-            <i class="fas fa-fw fa-users-medical"></i>
+            <i class="fas fa-user"></i>
             <span class="text-capitalize">Users</span>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link collapsed" href="<?= base_url('medicines') ?>" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-            <i class="fas fa-fw fa-users-medical"></i>
+            <i class="fas  fa-tablets"></i>
             <span class="text-capitalize">Medicines</span>
         </a>
     </li>

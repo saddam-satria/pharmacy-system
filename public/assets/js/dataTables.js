@@ -1,3 +1,3 @@
 $(document).ready(function () {
-  $('#table-patients').DataTable();
+  $('#table-datatables').DataTable();
 });

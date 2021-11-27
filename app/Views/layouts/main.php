@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title> <?= $title ?> - Sistem Apotek</title>
+    <title> <?= $title ?> - Pharmacy System</title>
 
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
@@ -27,7 +27,9 @@
     <div class="container">
 
         <?= $this->renderSection('content');  ?>
+        <?= $this->include('layouts/components/copyright'); ?>
     </div>
+
 
     <script src="<?= base_url('assets/js/sb-admin-2.min.js'); ?>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
