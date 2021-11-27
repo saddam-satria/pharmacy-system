@@ -4,11 +4,7 @@ namespace App\Controllers;
 
 class Users extends BaseController
 {
-    public function index()
-    {
-        $data = ["title" => "Users"];
-        return view('users', $data);
-    }
+
     public function renderLogin()
     {
         $data = ["title" => "Login"];
@@ -18,6 +14,11 @@ class Users extends BaseController
     {
         $data = ["title" => "Register"];
         return view('register', $data);
+    }
+    public function renderForgotPassword()
+    {
+        $data = ["title" => "Forgot Password"];
+        return view('forgot_password', $data);
     }
     public function loginAction()
     {

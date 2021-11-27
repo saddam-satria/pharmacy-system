@@ -34,12 +34,16 @@ $routes->setAutoRoute(true);
 
 // Views
 $routes->get('/', 'Home::index');
-$routes->get('/dashboard',  'Admin::index');
 $routes->get('/login', 'Users::renderLogin');
 $routes->get('/register', "Users::renderRegister");
-$routes->get('/patients', 'Patients::index');
-$routes->get('/users', 'Users::index');
-$routes->get('/medicines', 'Medicines::index');
+$routes->get('/forgot-password', 'Users::renderForgotPassword');
+
+
+// dashboard admin
+$routes->get('/dashboard',  'Admin::index');
+$routes->get('/patients', 'Admin::renderPatients');
+$routes->get('/users', 'Admin::renderUsers');
+$routes->get('/medicines', 'Admin::renderMedicines');
 
 
 // Controllers
