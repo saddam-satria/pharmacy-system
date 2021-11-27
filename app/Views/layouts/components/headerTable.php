@@ -6,7 +6,9 @@
      </div>
      <div class="ml-auto my-auto">
          <a href="#" class="btn btn-primary btn-sm text-capitalize">generate report</a>
-         <a href="#" class="btn btn-primary btn-sm text-capitalize">Add <?= $title; ?></a>
-
+         <!-- conditional rendering -->
+         <?php if ($title != "Users") : ?>
+             <a href="<?= base_url('add-' . strtolower($title)); ?>" class="btn btn-primary btn-sm text-capitalize">Add <?= $title; ?></a>
+         <?php endif ?>
      </div>
  </div>

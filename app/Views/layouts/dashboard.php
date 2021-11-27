@@ -37,6 +37,7 @@
                 <?= $this->include('layouts/components/topbar'); ?>
                 <?= $this->renderSection('content-dashboard'); ?>
 
+
                 <?= $this->include('layouts/components/copyright'); ?>
             </div>
         </div>

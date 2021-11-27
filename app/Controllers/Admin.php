@@ -24,4 +24,14 @@ class Admin extends BaseController
         $data = ["title" => "Patients"];
         return view('patients', $data);
     }
+    public function renderFormAddPatients()
+    {
+        $data = ["title" => "Add Patients"];
+        return view('add_patients', $data);
+    }
+    public function renderFormAddMedicines()
+    {
+        $data = ["title" => "Add Medicines"];
+        return view('add_medicines', $data);
+    }
 }

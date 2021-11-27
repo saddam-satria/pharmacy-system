@@ -44,6 +44,8 @@ $routes->get('/dashboard',  'Admin::index');
 $routes->get('/patients', 'Admin::renderPatients');
 $routes->get('/users', 'Admin::renderUsers');
 $routes->get('/medicines', 'Admin::renderMedicines');
+$routes->get('/add-patients', "Admin::renderFormAddPatients");
+$routes->get('/add-medicines', "Admin::renderFormAddMedicines");
 
 
 // Controllers
