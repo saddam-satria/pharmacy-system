@@ -10,7 +10,7 @@
 
 
 
-            <form action="<?= base_url('add-patients') ?>" method="POST">
+            <form action="<?= base_url('add-patients') ?>" method="POST" novalidate>
                 <?php if (isset($validation)) : ?>
                     <?= $validation->listErrors(); ?>
                 <?php endif;  ?>
@@ -23,6 +23,9 @@
                     <label for="patients-name" class="form-label">Patient Name</label>
                     <div class="input-group has-validation">
                         <input type="text" name="patients-name" class="form-control" id="patients-name" aria-describedby="patients-name">
+                    </div>
+                    <div class="invalid-feedback">
+                        Please choose a username.
                     </div>
                 </div>
 
