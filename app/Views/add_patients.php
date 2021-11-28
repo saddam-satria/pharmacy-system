@@ -9,18 +9,33 @@
         <div class="col-md-6">
             <form>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    <label for="patients-id" class="form-label">Patient ID</label>
+                    <input disabled readonly type="text" name="patients-id" class="form-control" id="patients-id" aria-describedby="patients-id">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    <label for="patients-name" class="form-label">Patient Name</label>
+                    <input type="text" name="patients-name" class="form-control" id="patients-name" aria-describedby="patients-name">
                 </div>
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+
+                <div class="mb-3">
+                    <label for="patients-address" class="form-label">Patient Address</label>
+                    <input type="text" name="patients-address" class="form-control" id="patients-address" aria-describedby="patients-address">
                 </div>
+                <div class="mb-3">
+                    <label for="patients-diseases" class="form-label">Patient Diseases</label>
+                    <input type="text" name="patients-diseases" class="form-control" id="patients-diseases" aria-describedby="patients-diseases">
+                </div>
+
+                <div class="mb-3">
+                    <label for="last-visited" class="form-label">Last Visited</label>
+                    <input type="date" name="last-visited" class="form-control" id="last-visited" aria-describedby="last-visited">
+                </div>
+
+                <div class="mb-3">
+                    <label for="next-visited" class="form-label">Next Visited</label>
+                    <input type="date" name="next-visited" class="form-control" id="next-visited">
+                </div>
+
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
