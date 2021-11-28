@@ -50,6 +50,7 @@ $routes->get('/add-medicines', "Admin::renderFormAddMedicines");
 
 // Controllers
 $routes->post('/login', "Users::loginAction");
+$routes->post('/add-patients', "Patients::addPatients");
 
 
 /*

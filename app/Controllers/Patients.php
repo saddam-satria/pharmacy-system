@@ -2,18 +2,31 @@
 
 namespace App\Controllers;
 
+use App\Controllers;
+
+
 class Patients extends BaseController
 {
-    public function index()
+    protected $rules;
+    public function __construct()
     {
+        $this->rules = [
+            "patients-name" => "required",
+            "patients-address" => "required",
+            "patients-diseases" => "required",
+            "last-visited" => "required",
+            "next-visited" => "required"
+        ];
+    }
 
-        $data = ["title" => "Patients", "datas" => [
+    public function addPatients()
+    {
+        $patients = ["name" => $this->request->getVar('patients-name'), "address" => $this->request->getVar('patients-address'), "diseases" => $this->request->getVar('patients-diseases'), "last-visited" => $this->request->getVar('last-visited'), "next-visited" => $this->request->getVar('next-visited')];
 
-            "nama" => ["saddam", "saddam", "saddam"],
-            "kelas" => "12.1A.05",
-            "country" => "indonesia"
-
-        ]];
-        return view('patient', $data);
+        if (!$this->validate($this->rules)) {
+            echo view('add_patients', ["title" => "Add Patients", "validation" => $this->validator]);
+        } else {
+            dd($patients);
+        }
     }
 }
