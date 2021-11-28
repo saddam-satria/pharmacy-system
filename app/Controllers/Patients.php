@@ -11,11 +11,11 @@ class Patients extends BaseController
     public function __construct()
     {
         $this->rules = [
-            "patients-name" => "required",
-            "patients-address" => "required",
-            "patients-diseases" => "required",
-            "last-visited" => "required",
-            "next-visited" => "required"
+            "patients-name" => ["rules" => "required", "errors" => ["required" => "please, fill name"]],
+            "patients-address" => ["rules" => "required", "errors" => ["required" => "please, fill address"]],
+            "patients-diseases" => ["rules" => "required", "errors" => ["required" => "please, fill diseases"]],
+            "last-visited" => ["rules" => "required", "errors" => ["required" => "please, fill last visited"]],
+            "next-visited" => ["rules" => "required", "errors" => ["required" => "please, fill next visited"]]
         ];
     }
 
