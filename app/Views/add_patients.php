@@ -7,7 +7,7 @@
     <?= $this->include('layouts/components/headerForm'); ?>
     <div class="row">
         <div class="col-md-6">
-            <form>
+            <form action="<?= base_url('add-patients') ?>" method="POST">
                 <div class="mb-3">
                     <label for="patients-id" class="form-label">Patient ID</label>
                     <input disabled readonly type="text" name="patients-id" class="form-control" id="patients-id" aria-describedby="patients-id">
