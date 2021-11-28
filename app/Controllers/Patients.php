@@ -7,7 +7,7 @@ use App\Controllers;
 
 class Patients extends BaseController
 {
-    protected $rules;
+    protected  $rules;
     public function __construct()
     {
         $this->rules = [
@@ -21,12 +21,17 @@ class Patients extends BaseController
 
     public function addPatients()
     {
-        $patients = ["name" => $this->request->getVar('patients-name'), "address" => $this->request->getVar('patients-address'), "diseases" => $this->request->getVar('patients-diseases'), "last-visited" => $this->request->getVar('last-visited'), "next-visited" => $this->request->getVar('next-visited')];
+        if ($this->validate($this->rules)) {
+            if ($this->request->getPost()) {
+                $patients = ["name" => $this->request->getVar('patients-name'), "address" => $this->request->getVar('patients-address'), "diseases" => $this->request->getVar('patients-diseases'), "last-visited" => $this->request->getVar('last-visited'), "next-visited" => $this->request->getVar('next-visited')];
 
-        if (!$this->validate($this->rules)) {
-            echo view('add_patients', ["title" => "Add Patients", "validation" => $this->validator]);
+                // add to db
+                return view('add_patients', ["title" => "Add Patients", "success" => $this->validator]);
+            } else {
+                return redirect()->back();
+            }
         } else {
-            dd($patients);
+            return view('add_patients', ["title" => "Add Patients", "validation" => $this->validator]);
         }
     }
 }
