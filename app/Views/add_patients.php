@@ -10,7 +10,6 @@
             <form action="<?= base_url('add-patients') ?>" method="POST">
                 <?php if (isset($validation)) : ?>
                     <?php if (!$validation->getErrors()) : ?>
-
                         <?= " 
                         <script>
                         Swal.fire(
@@ -21,11 +20,6 @@
                         </script>"; ?>
                     <?php endif; ?>
                 <?php endif; ?>
-                <div class="mb-3">
-                    <label for="patients-id" class="form-label">Patient ID</label>
-                    <input disabled readonly type="text" name="patients-id" class="form-control" id="patients-id" aria-describedby="patients-id">
-
-                </div>
                 <div class="mb-3">
                     <label for="patients-name" class="form-label">Patient Name</label>
                     <input type="text" name="patients-name" class="form-control" id="patients-name" aria-describedby="patients-name">
