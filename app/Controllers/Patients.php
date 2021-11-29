@@ -26,7 +26,7 @@ class Patients extends BaseController
                 $patients = ["name" => $this->request->getVar('patients-name'), "address" => $this->request->getVar('patients-address'), "diseases" => $this->request->getVar('patients-diseases'), "last-visited" => $this->request->getVar('last-visited'), "next-visited" => $this->request->getVar('next-visited')];
 
                 // add to db
-                return view('add_patients', ["title" => "Add Patients", "success" => $this->validator]);
+                return view('add_patients', ["title" => "Add Patients", "validation" => $this->validator]);
             } else {
                 return redirect()->back();
             }

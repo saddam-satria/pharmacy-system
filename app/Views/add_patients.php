@@ -8,6 +8,19 @@
     <div class="row">
         <div class="col-md-6">
             <form action="<?= base_url('add-patients') ?>" method="POST">
+                <?php if (isset($validation)) : ?>
+                    <?php if (!$validation->getErrors()) : ?>
+
+                        <?= " 
+                        <script>
+                        Swal.fire(
+                            'Success create a new patient',
+                            '',
+                            'success'
+                        )
+                        </script>"; ?>
+                    <?php endif; ?>
+                <?php endif; ?>
                 <div class="mb-3">
                     <label for="patients-id" class="form-label">Patient ID</label>
                     <input disabled readonly type="text" name="patients-id" class="form-control" id="patients-id" aria-describedby="patients-id">
