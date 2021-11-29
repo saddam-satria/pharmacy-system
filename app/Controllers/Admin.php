@@ -4,9 +4,15 @@ namespace App\Controllers;
 
 class Admin extends BaseController
 {
+    protected $db;
+    public function __construct()
+    {
+        $this->db = \Config\Database::connect();
+    }
     public function index()
     {
-        $data = ["title" => "Admin"];
+        $sumPatients = $this->db->query("SELECT * FROM `patients_data`")->getNumRows();
+        $data = ["title" => "Admin", "sumPatients" => $sumPatients];
         return view('admin', $data);
     }
     public function renderUsers()
@@ -21,7 +27,8 @@ class Admin extends BaseController
     }
     public function renderPatients()
     {
-        $data = ["title" => "Patients"];
+        $patients = $this->db->query("SELECT * FROM `patients_data`")->getResult();
+        $data = ["title" => "Patients", "patients" => $patients];
         return view('patients', $data);
     }
     public function renderFormAddPatients()
