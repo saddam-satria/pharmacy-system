@@ -17,28 +17,31 @@
                 <table class="table table-borderless table-hover table-light text-dark" id="table-datatables" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>Patient ID</th>
                             <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
+                            <th>Addres</th>
+                            <th>Diseases</th>
+                            <th>last_visited</th>
+                            <th>next_visited</th>
                             <th>Action</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
-                            <td>
-                                <?= $this->include('layouts/components/actionButton'); ?>
-                            </td>
-                        </tr>
+                        <?php foreach ($patients as $patient) : ?>
+                            <tr>
+                                <td><?= $patient->id_patients; ?></td>
+                                <td><?= $patient->name; ?></td>
+                                <td><?= $patient->address; ?></td>
+                                <td><?= $patient->diseases; ?></td>
+                                <td><?= $patient->last_visited; ?></td>
+                                <td><?= $patient->next_visited; ?></td>
+                                <td>
+                                    <?= $this->include('layouts/components/actionButton'); ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+
 
                     </tbody>
                 </table>
