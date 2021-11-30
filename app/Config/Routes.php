@@ -42,15 +42,19 @@ $routes->get('/forgot-password', 'Users::renderForgotPassword');
 // dashboard admin
 $routes->get('/dashboard',  'Admin::index');
 $routes->get('/patients', 'Admin::renderPatients');
+$routes->get('/add-patients', "Admin::renderFormAddPatients");
+$routes->get('/update-patients/(:num)', "Admin::renderFormUpdatePatients/$1");
+
 $routes->get('/users', 'Admin::renderUsers');
 $routes->get('/medicines', 'Admin::renderMedicines');
-$routes->get('/add-patients', "Admin::renderFormAddPatients");
 $routes->get('/add-medicines', "Admin::renderFormAddMedicines");
 
 
 // Controllers
 $routes->post('/login', "Users::loginAction");
 $routes->post('/add-patients', "Patients::addPatients");
+$routes->get('/remove-patients/(:num)', "Patients::removePatients/$1");
+$routes->post('/update-patients/(:num)', "Patients::updatePatients/$1");
 
 
 /*

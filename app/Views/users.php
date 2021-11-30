@@ -36,7 +36,8 @@
                             <td>2011/04/25</td>
                             <td>$320,800</td>
                             <td>
-                                <?= $this->include('layouts/components/actionButton'); ?>
+                                <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                <a href="#" class="btn btn-warning btn-sm"><i class="fas fa-pencil"></i></a>
                             </td>
                         </tr>
 

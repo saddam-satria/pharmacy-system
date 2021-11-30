@@ -14,7 +14,7 @@ class PatientsModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_patients', 'name', 'address', 'diseases', 'last_visited', 'next_visited'];
+    protected $allowedFields    = ['id_patients', 'name', 'age', 'address', 'diseases', 'last_visited', 'next_visited'];
 
     // Dates
     protected $useTimestamps = false;
@@ -25,11 +25,10 @@ class PatientsModel extends Model
 
     // Validation
     protected $validationRules      = [
-        "id" => "required",
-        "id_patients" => "required|is_unique|max_length[100]",
+        "id_patients" => "required|is_unique[patients_data.id_patients]|max_length[100]",
         "name" => "required|max_length[150]",
-        "address" => "required|max_length[200]",
         "age"  => "required|numeric",
+        "address" => "required|max_length[200]",
         "diseases" => "required|max_length[100]",
         "last_visited" => "required",
         "next_visited" => "required"
