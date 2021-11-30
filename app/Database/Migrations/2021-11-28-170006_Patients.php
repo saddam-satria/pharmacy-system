@@ -27,6 +27,10 @@ class Patients extends Migration
                 "constraint" => 150,
 
             ],
+            "age" => [
+                "type" => "INT",
+                "null" => false,
+            ],
             "address" => [
                 "type" => "VARCHAR",
                 "null" => false,
