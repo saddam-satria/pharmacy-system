@@ -29,7 +29,7 @@ class Medicines extends BaseController
             }
 
             // add to db
-            $medicines = ["medicine_id" => uniqid("medicine-"), "medicine_name" => $this->request->getVar('medicine-name'), "medicine_stock" => $this->request->getVar('medicine-stock'), "medicine_expiry" => $this->request->getVar('medicine-expiry'), "medicine_purpose" => $this->request->getVar('medicine-purpose'), "medicine_factory" => $this->request->getVar('medicine-factory'), "created_at" => $this->request->getVar('created-at')];
+            $medicines = ["id_medicine" => uniqid("medicine-"), "medicine_name" => $this->request->getVar('medicine-name'), "medicine_stock" => $this->request->getVar('medicine-stock'), "medicine_expiry" => $this->request->getVar('medicine-expiry'), "medicine_purpose" => $this->request->getVar('medicine-purpose'), "medicine_factory" => $this->request->getVar('medicine-factory'), "created_at" => $this->request->getVar('created-at')];
             $result = $this->MedicinesModel->insert($medicines);
             if ($result) {
                 return  redirect()->to(base_url('add-medicines'))->with("success", "success create new medicine");
@@ -40,7 +40,33 @@ class Medicines extends BaseController
             return redirect()->to(base_url('add-medicines'));
         }
     }
-    public function getMedicine()
+    public function deleteMedicines(string $id)
     {
+        $result = $this->MedicinesModel->delete($id);
+        if (!$result) {
+            return redirect()->to(base_url('medicines'))->with('error', "error remove medicines");
+        }
+
+        return redirect()->to(base_url('medicines'))->with('success', "success remove medicines");
+    }
+
+    public function updateMedicines(string $id)
+    {
+        if (!empty($id) && $this->request->getPost()) {
+            if ($this->validate($this->rules)) {
+                $medicines = ["medicine_name" => $this->request->getVar('medicine-name'), "medicine_stock" => $this->request->getVar('medicine-stock'), "medicine_expiry" => $this->request->getVar('medicine-expiry'), "medicine_purpose" => $this->request->getVar('medicine-purpose'), "medicine_factory" => $this->request->getVar('medicine-factory'), "updated_at" => $this->request->getVar('updated-at')];
+
+                $result = $this->MedicinesModel->update(["id" => $id], $medicines);
+                if (!$result) {
+                    return redirect()->to(base_url('update-medicines/' . $id))->with("error", "somethings wrong");
+                }
+                return redirect()->to(base_url('update-medicines/' . $id))->with('success', 'success update medicine');
+            }
+            $medicines = $this->MedicinesModel->find(["id" => $id]);
+            $data = ['title' => "Update Medicines", "validation" => $this->validator, "medicines" => $medicines];
+            return view('update_medicines', $data);
+        }
+
+        return redirect()->to(base_url('medicines'));
     }
 }

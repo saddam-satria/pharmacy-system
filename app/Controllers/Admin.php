@@ -57,4 +57,16 @@ class Admin extends BaseController
             }
         }
     }
+    public function renderFormUpdateMedicines(string $id)
+    {
+        helper('form');
+        if (!empty($id)) {
+            $medicines = $this->MedicinesModel->find(array("id" => $id));
+            if (count($medicines) < 1) {
+                return redirect()->to(base_url('medicines'));
+            }
+            $data = ['title' => "Update Medicines", "medicines" => $medicines];
+            return view('update_medicines', $data);
+        }
+    }
 }

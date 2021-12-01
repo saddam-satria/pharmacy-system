@@ -14,7 +14,7 @@ class Patients extends Migration
                 "auto_increment" => true,
                 "null" => false,
             ],
-            "id_patients" => [
+            "id_patient" => [
                 "type" => "VARCHAR",
                 "null" => false,
                 "unique" => true,

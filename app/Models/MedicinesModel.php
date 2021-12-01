@@ -14,7 +14,7 @@ class MedicinesModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ["medicine_id", "medicine_name", "medicine_stock", "medicine_expiry", "medicine_purpose", "medicine_factory", "created_at", "updated_at"];
+    protected $allowedFields    = ["id_medicine", "medicine_name", "medicine_stock", "medicine_expiry", "medicine_purpose", "medicine_factory", "created_at", "updated_at"];
 
     // Dates
     protected $useTimestamps = false;
@@ -25,7 +25,7 @@ class MedicinesModel extends Model
 
     // Validation
     protected $validationRules      = [
-        "medicine_id" => "required|string|max_length[100]",
+        "id_medicine" => "required|string|max_length[100]|is_unique[medicines_data.id_medicine]",
         "medicine_name" => "required|string|max_length[150]",
         "medicine_stock" => "required|numeric",
         "medicine_expiry" => "required|date",

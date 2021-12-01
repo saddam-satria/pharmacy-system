@@ -14,7 +14,7 @@ class Medicines extends Migration
                 "auto_increment" => true,
                 "null" => false,
             ],
-            "medicine_id" => [
+            "id_medicine" => [
                 "type"  => "VARCHAR",
                 "null" => false,
                 "unique" => true,

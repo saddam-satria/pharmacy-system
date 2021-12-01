@@ -22,7 +22,7 @@
                 <?php if (!empty(session()->getFlashdata('success'))) : ?>
                     <?= "<script>
                         Swal.fire(
-                            'success update a new patient',
+                            'success update patient',
                             '',
                             'success'
                         )
@@ -30,7 +30,7 @@
                 <?php endif; ?>
                 <div class="mb-3">
                     <label for="patients-id" class="form-label">Patient ID</label>
-                    <input value="<?= $patients[0]['id_patients']; ?>" type="text" name="patients-id" class="form-control" id="patients-id" aria-describedby="patients-id" readonly>
+                    <input value="<?= $patients[0]['id_patient']; ?>" type="text" name="patients-id" class="form-control" id="patients-id" aria-describedby="patients-id" readonly>
                 </div>
                 <div class="mb-3">
                     <label for="patients-name" class="form-label">Patient Name</label>

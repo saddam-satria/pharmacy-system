@@ -27,7 +27,7 @@ class Patients extends BaseController
         helper("form");
         if ($this->validate($this->rules)) {
             if ($this->request->getPost()) {
-                $patients = ["id_patients" => uniqid("patients-"), "name" => $this->request->getVar('patients-name'), "age" => $this->request->getVar('patients-age'), "address" => $this->request->getVar('patients-address'), "diseases" => $this->request->getVar('patients-diseases'), "last_visited" => $this->request->getVar('last-visited'), "next_visited" => $this->request->getVar('next-visited')];
+                $patients = ["id_patient" => uniqid("patients-"), "name" => $this->request->getVar('patients-name'), "age" => $this->request->getVar('patients-age'), "address" => $this->request->getVar('patients-address'), "diseases" => $this->request->getVar('patients-diseases'), "last_visited" => $this->request->getVar('last-visited'), "next_visited" => $this->request->getVar('next-visited')];
                 // add to db
 
                 $result = $this->PatientsModel->insert($patients);
@@ -50,9 +50,9 @@ class Patients extends BaseController
             // Running
             $result = $this->PatientsModel->delete(array("id" => $id));
             if ($result) {
-                return redirect()->to(base_url('/patients'))->with('success', "success delete patient");
+                return redirect()->to(base_url('/patients'))->with('success', "success remove patient");
             }
-            return redirect()->to(base_url('/patient'))->with('error', "error delete patient");
+            return redirect()->to(base_url('/patient'))->with('error', "error remove patient");
         } else {
             return redirect()->to(base_url('/patients'));
         }

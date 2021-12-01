@@ -46,8 +46,10 @@ $routes->get('/add-patients', "Admin::renderFormAddPatients");
 $routes->get('/update-patients/(:num)', "Admin::renderFormUpdatePatients/$1");
 
 $routes->get('/users', 'Admin::renderUsers');
+
 $routes->get('/medicines', 'Admin::renderMedicines');
 $routes->get('/add-medicines', "Admin::renderFormAddMedicines");
+$routes->get('/update-medicines/(:num)', "Admin::renderFormUpdateMedicines/$1");
 
 
 // Controllers
@@ -57,6 +59,8 @@ $routes->get('/remove-patients/(:num)', "Patients::removePatients/$1");
 $routes->post('/update-patients/(:num)', "Patients::updatePatients/$1");
 
 $routes->post('/add-medicines', "Medicines::addMedicines");
+$routes->get('/remove-medicines/(:num)', "Medicines::deleteMedicines/$1");
+$routes->post('/update-medicines/(:num)', "Medicines::updateMedicines/$1");
 
 
 /*

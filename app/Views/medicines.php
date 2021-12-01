@@ -6,6 +6,23 @@
 
     <?= $this->include('layouts/components/headerTable') ?>
 
+    <?php if (!empty(session()->getFlashdata('success'))) : ?>
+        <?= "<script>
+                Swal.fire(
+                    'success remove medicine',
+                    '',
+                    'success'
+                )
+                </script>" ?>
+    <?php elseif (!empty(session()->getFlashdata('error'))) : ?>
+        <?= "<script>
+                Swal.fire(
+                    'somethings wrong',
+                    '',
+                    'error'
+                )
+                </script>" ?>
+    <?php endif; ?>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -34,17 +51,17 @@
                         <?php if (isset($medicines)) : ?>
                             <?php foreach ($medicines as $medicine) : ?>
                                 <tr>
-                                    <td><?= $medicine['medicine_id'] ?></td>
+                                    <td><?= $medicine['id_medicine'] ?></td>
                                     <td><?= $medicine['medicine_name'] ?></td>
                                     <td><?= $medicine['medicine_stock'] ?></td>
-                                    <td><?= $medicine['medicine_expiry'] ?></td>
+                                    <td class="<?= date('Y-m-d') >  $medicine['medicine_expiry'] ? "text-danger text-uppercase" :  "text-dark";  ?>"> <?= date('Y-m-d') >  $medicine['medicine_expiry'] ? $medicine['medicine_expiry'] . " (expired)" :  $medicine['medicine_expiry'];  ?></td>
                                     <td><?= $medicine['medicine_purpose'] ?></td>
                                     <td><?= $medicine['medicine_factory'] ?></td>
                                     <td><?= $medicine['created_at'] ?></td>
                                     <td><?= empty($medicine['updated_at']) ? "Not Updated" : $medicine['updated_at'] ?></td>
                                     <td>
-                                        <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
-                                        <a href="#" class="btn btn-warning btn-sm"><i class="fas fa-pencil"></i></a>
+                                        <a href="<?= base_url('remove-medicines/' . $medicine['id']) ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                        <a href="<?= base_url('update-medicines/' . $medicine['id']) ?>" class="btn btn-warning btn-sm"><i class="fas fa-pencil"></i></a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

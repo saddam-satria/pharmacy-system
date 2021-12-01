@@ -17,7 +17,7 @@
                 <?php if (!empty(session()->getFlashdata('success'))) : ?>
                     <?= "<script>
                         Swal.fire(
-                            'success delete patient',
+                            'success remove patient',
                             '',
                             'success'
                         )
@@ -49,7 +49,7 @@
                         <?php if (isset($patients)) : ?>
                             <?php foreach ($patients as $patient) : ?>
                                 <tr>
-                                    <td><?= $patient["id_patients"]; ?></td>
+                                    <td><?= $patient["id_patient"]; ?></td>
                                     <td><?= $patient["name"]; ?></td>
                                     <td><?= $patient["age"]; ?></td>
                                     <td><?= $patient["address"]; ?></td>
