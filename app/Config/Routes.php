@@ -56,6 +56,8 @@ $routes->post('/add-patients', "Patients::addPatients");
 $routes->get('/remove-patients/(:num)', "Patients::removePatients/$1");
 $routes->post('/update-patients/(:num)', "Patients::updatePatients/$1");
 
+$routes->post('/add-medicines', "Medicines::addMedicines");
+
 
 /*
  * --------------------------------------------------------------------

@@ -3,24 +3,66 @@
 
 
 <div class="mx-5">
-
+    <?php date_default_timezone_set("Asia/Jakarta") ?>
     <?= $this->include('layouts/components/headerForm'); ?>
     <div class="row">
         <div class="col-md-6">
-            <form>
+            <form action="<?= base_url('add-medicines') ?>" method="POST">
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    <label for="medicine-name" class="form-label">Medicine Name</label>
+                    <input value="<?= set_value('medicine-name') ?>" type="text" name="medicine-name" class="form-control" id="medicine-name" aria-describedby="medicine-name">
+                    <div class="mt-1 text-danger text-lowercase" role="alert">
+                        <?php if (isset($validation)) : ?>
+                            <?= $validation->getError("medicine-name"); ?>
+                        <?php endif;  ?>
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    <label for="medicine-stock" class="form-label">Medicine Stock</label>
+                    <input value="<?= set_value('medicine-stock') ?>" type="text" name="medicine-stock" class="form-control" id="medicine-stock" aria-describedby="medicine-stock">
+                    <div class="mt-1 text-danger text-lowercase" role="alert">
+                        <?php if (isset($validation)) : ?>
+                            <?= $validation->getError("medicine-stock"); ?>
+                        <?php endif;  ?>
+                    </div>
                 </div>
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+
+                <div class="mb-3">
+                    <label for="medicine-expiry" class="form-label">Medicine Expiry</label>
+                    <input value="<?= set_value('medicine-expiry') ?>" type="date" name="medicine-expiry" class="form-control" id="medicine-expiry" aria-describedby="medicine-expiry">
+                    <div class="mt-1 text-danger text-lowercase" role="alert">
+                        <?php if (isset($validation)) : ?>
+                            <?= $validation->getError("medicine-expiry"); ?>
+                        <?php endif;  ?>
+                    </div>
                 </div>
+
+                <div class="mb-3">
+                    <label for="medicine-purpose" class="form-label">Medicine Purpose</label>
+                    <input value="<?= set_value('medicine-purpose') ?>" type="text" name="medicine-purpose" class="form-control" id="medicine-purpose" aria-describedby="medicine-purpose">
+                    <div class="mt-1 text-danger text-lowercase" role="alert">
+                        <?php if (isset($validation)) : ?>
+                            <?= $validation->getError("medicine-purpose"); ?>
+                        <?php endif;  ?>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="medicine-factory" class="form-label">Medicine Factory</label>
+                    <input value="<?= set_value('medicine-factory') ?>" type="text" name="medicine-factory" class="form-control" id="medicine-factory" aria-describedby="medicine-factory">
+                    <div class="mt-1 text-danger text-lowercase" role="alert">
+                        <?php if (isset($validation)) : ?>
+                            <?= $validation->getError("medicine-factory"); ?>
+                        <?php endif;  ?>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="created-at" class="form-label">Created At</label>
+                    <input value="<?= strtolower(date("F j, Y, g:i a")); ?>" readonly type="text" name="created-at" class="form-control text-capitalize" id="created-at" aria-describedby="created-at">
+                </div>
+
+
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>

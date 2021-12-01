@@ -38,12 +38,13 @@ class Admin extends BaseController
     public function renderFormAddPatients()
     {
         helper('form');
-        $data = ["title" => "Add Patients"];
+        $data = ["title" => "New Patients"];
         return view('add_patients', $data);
     }
     public function renderFormAddMedicines()
     {
-        $data = ["title" => "Add Medicines"];
+        helper('form');
+        $data = ["title" => "New Medicines"];
         return view('add_medicines', $data);
     }
     public function renderFormUpdatePatients(string $id)

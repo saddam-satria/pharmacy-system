@@ -13,7 +13,7 @@ class Patients extends BaseController
     {
         $this->rules = [
             "patients-name" => ["rules" => "required", "errors" => ["required" => "please, fill name"]],
-            "patients-age" => ["rules" => "required", "errors" => ["required" => "please, fill age"]],
+            "patients-age" => ["rules" => "required|numeric", "errors" => ["required" => "please, fill age", "numeric" => "age must be number"]],
             "patients-address" => ["rules" => "required", "errors" => ["required" => "please, fill address"]],
             "patients-diseases" => ["rules" => "required", "errors" => ["required" => "please, fill diseases"]],
             "last-visited" => ["rules" => "required", "errors" => ["required" => "please, fill last visited"]],
