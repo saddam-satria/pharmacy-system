@@ -7,6 +7,8 @@ use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use \App\Models\MedicinesModel;
+use \App\Models\PatientsModel;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -36,10 +38,20 @@ class BaseController extends Controller
      * @var array
      */
     protected $helpers = [];
-
     /**
      * Constructor.
+     * 
      */
+
+    protected $PatientsModel;
+    protected $MedicinesModel;
+
+    public function __construct()
+    {
+        $this->PatientsModel = new PatientsModel();
+        $this->MedicinesModel = new MedicinesModel();
+    }
+
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         // Do Not Edit This Line

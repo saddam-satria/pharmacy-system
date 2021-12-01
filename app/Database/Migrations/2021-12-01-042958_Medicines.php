@@ -14,7 +14,7 @@ class Medicines extends Migration
                 "auto_increment" => true,
                 "null" => false,
             ],
-            "medicine-id" => [
+            "medicine_id" => [
                 "type"  => "VARCHAR",
                 "null" => false,
                 "unique" => true,
@@ -44,11 +44,11 @@ class Medicines extends Migration
                 "null" => false,
             ],
             "created_at" => [
-                "type" => "DATE",
+                "type" => "DATETIME",
                 "null" => false
             ],
             "updated_at" => [
-                "type" => "DATE",
+                "type" => "DATETIME",
                 "null" => true
             ]
 
@@ -60,6 +60,6 @@ class Medicines extends Migration
 
     public function down()
     {
-        //
+        $this->forge->dropTable('medicines_data');
     }
 }

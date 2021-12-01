@@ -7,15 +7,11 @@ use \App\Models\PatientsModel;
 
 class Admin extends BaseController
 {
-    protected $PatientsModel;
-    public function __construct()
-    {
-        $this->PatientsModel = new PatientsModel();
-    }
     public function index()
     {
+        $medicines = $this->MedicinesModel->findAll();
         $patients = $this->PatientsModel->findAll();
-        $data = ["title" => "Admin", "sumPatients" => count($patients)];
+        $data = ["title" => "Admin", "sumPatients" => count($patients), "sumMedicines" => count($medicines)];
         return view('admin', $data);
     }
     public function renderUsers()
@@ -25,7 +21,8 @@ class Admin extends BaseController
     }
     public function renderMedicines()
     {
-        $data = ["title" => "Medicines"];
+        $medicines = $this->MedicinesModel->findAll();
+        $data = ["title" => "Medicines", "medicines" => $medicines];
         return view('medicines', $data);
     }
     public function renderPatients()

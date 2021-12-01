@@ -8,6 +8,24 @@
     <div class="row">
         <div class="col-md-6">
             <form action="<?= base_url('add-medicines') ?>" method="POST">
+                <?php if (!empty(session()->getFlashdata('error'))) : ?>
+                    <?= "<script>
+                        Swal.fire(
+                            'Somethings error',
+                            '',
+                            'error'
+                        )
+                        </script> "; ?>
+                <?php endif;  ?>
+                <?php if (!empty(session()->getFlashdata('success'))) : ?>
+                    <?= "<script>
+                        Swal.fire(
+                            'success create a new medicine',
+                            '',
+                            'success'
+                        )
+                        </script> "; ?>
+                <?php endif; ?>
                 <div class="mb-3">
                     <label for="medicine-name" class="form-label">Medicine Name</label>
                     <input value="<?= set_value('medicine-name') ?>" type="text" name="medicine-name" class="form-control" id="medicine-name" aria-describedby="medicine-name">
@@ -59,7 +77,7 @@
 
                 <div class="mb-3">
                     <label for="created-at" class="form-label">Created At</label>
-                    <input value="<?= strtolower(date("F j, Y, g:i a")); ?>" readonly type="text" name="created-at" class="form-control text-capitalize" id="created-at" aria-describedby="created-at">
+                    <input value="<?= date("Y-m-d H:i:s"); ?>" readonly type="text" name="created-at" class="form-control text-capitalize" id="created-at" aria-describedby="created-at">
                 </div>
 
 

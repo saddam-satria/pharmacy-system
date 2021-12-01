@@ -1,7 +1,7 @@
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-  
+
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('dashboard'); ?>">
         <div class="sidebar-brand-text mx-3 text-capitalize"><i class="fas fa-hospital-symbol"></i> pharmacy</div>
     </a>
@@ -27,19 +27,19 @@
     </div>
     <li class="nav-item <?= uri_string() == "patients" ? "active" : "" ?>">
         <a class="nav-link" href="<?= base_url('patients'); ?>">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <i class="fas fa-fw fa-hospital-user"></i>
             <span>Patients</span></a>
     </li>
 
     <li class="nav-item <?= uri_string() == "users" ? "active" : "" ?>">
         <a class="nav-link" href="<?= base_url('users'); ?>">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <i class="fas fa-fw fa-users"></i>
             <span>Users</span></a>
     </li>
 
     <li class="nav-item <?= uri_string() == "medicines" ? "active" : "" ?>">
         <a class="nav-link" href="<?= base_url('medicines'); ?>">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <i class="fas fa-fw fa-tablets"></i>
             <span>Medicines</span></a>
     </li>
 

@@ -3,11 +3,11 @@
 namespace App\Controllers;
 
 use App\Controllers;
-use \App\Models\PatientsModel;
+use App\Models\PatientsModel;
 
 class Patients extends BaseController
 {
-    protected  $rules;
+    protected $rules;
     protected $PatientsModel;
     public function __construct()
     {
@@ -27,8 +27,9 @@ class Patients extends BaseController
         helper("form");
         if ($this->validate($this->rules)) {
             if ($this->request->getPost()) {
-                $patients = ["id_patients" => uniqid(), "name" => $this->request->getVar('patients-name'), "age" => $this->request->getVar('patients-age'), "address" => $this->request->getVar('patients-address'), "diseases" => $this->request->getVar('patients-diseases'), "last_visited" => $this->request->getVar('last-visited'), "next_visited" => $this->request->getVar('next-visited')];
+                $patients = ["id_patients" => uniqid("patients-"), "name" => $this->request->getVar('patients-name'), "age" => $this->request->getVar('patients-age'), "address" => $this->request->getVar('patients-address'), "diseases" => $this->request->getVar('patients-diseases'), "last_visited" => $this->request->getVar('last-visited'), "next_visited" => $this->request->getVar('next-visited')];
                 // add to db
+
                 $result = $this->PatientsModel->insert($patients);
                 if ($result) {
                     return redirect()->to(base_url('/add-patients'))->with("success", "success create a new patient");
