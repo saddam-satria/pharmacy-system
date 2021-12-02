@@ -11,12 +11,14 @@ class Admin extends BaseController
     {
         $medicines = $this->MedicinesModel->findAll();
         $patients = $this->PatientsModel->findAll();
-        $data = ["title" => "Admin", "sumPatients" => count($patients), "sumMedicines" => count($medicines)];
+        $users = $this->UsersModel->findAll();
+        $data = ["title" => "Admin", "sumPatients" => count($patients), "sumMedicines" => count($medicines), "sumUsers" => count($users)];
         return view('admin', $data);
     }
     public function renderUsers()
     {
-        $data = ["title" => "Users"];
+        $users = $this->UsersModel->findAll();
+        $data = ["title" => "Users", "users" => $users];
         return view('users', $data);
     }
     public function renderMedicines()

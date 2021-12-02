@@ -24,8 +24,9 @@ class Users extends Migration
                 "unique" => true,
             ],
             "phone_number" => [
-                "type" => "INT",
+                "type" => "VARCHAR",
                 "unique" => true,
+                "constraint" => 12,
             ],
             "password" => [
                 "type" => "VARCHAR",
@@ -34,7 +35,8 @@ class Users extends Migration
             "role" => [
                 "type" =>  "VARCHAR",
                 "constraint" => 50,
-                "default" => "user"
+                "default" => "user",
+                "null" => true,
             ],
             "created_at" => [
                 "type" => "DATETIME"
@@ -51,6 +53,6 @@ class Users extends Migration
 
     public function down()
     {
-        $this->forge->dropTable("users");
+        $this->forge->dropTable("users_data");
     }
 }

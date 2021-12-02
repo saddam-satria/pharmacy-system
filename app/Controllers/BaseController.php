@@ -9,6 +9,7 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use \App\Models\MedicinesModel;
 use \App\Models\PatientsModel;
+use App\Models\UsersModel;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -45,11 +46,13 @@ class BaseController extends Controller
 
     protected $PatientsModel;
     protected $MedicinesModel;
+    protected $UsersModel;
 
     public function __construct()
     {
         $this->PatientsModel = new PatientsModel();
         $this->MedicinesModel = new MedicinesModel();
+        $this->UsersModel = new UsersModel();
     }
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)

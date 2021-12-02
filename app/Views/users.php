@@ -17,29 +17,30 @@
                 <table class="table table-borderless table-hover table-light text-dark" id="table-datatables" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
                             <th>Action</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
-                            <td>
-                                <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
-                                <a href="#" class="btn btn-warning btn-sm"><i class="fas fa-pencil"></i></a>
-                            </td>
-                        </tr>
+                        <?php if (isset($users)) : ?>
+                            <?php foreach ($users as $key => $user) : ?>
+                                <?php $key = $key + 1 ?>
+                                <tr>
+                                    <td><?= $key++ ?></td>
+                                    <td><?= $user['name'] ?></td>
+                                    <td><?= $user['email'] ?></td>
+                                    <td><?= $user['phone_number'] ?></td>
+                                    <td>
+                                        <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                        <a href="#" class="btn btn-warning btn-sm"><i class="fas fa-pencil"></i></a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
 
                     </tbody>
                 </table>
