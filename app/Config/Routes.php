@@ -55,6 +55,9 @@ $routes->get('/update-medicines/(:num)', "Admin::renderFormUpdateMedicines/$1");
 // Controllers
 $routes->post('/login', "Users::loginAction");
 $routes->post('/register', "Users::registerAction");
+$routes->get('/remove-users/(:num)', 'Users::deleteUsers/$1');
+
+
 $routes->post('/add-patients', "Patients::addPatients");
 $routes->get('/remove-patients/(:num)', "Patients::removePatients/$1");
 $routes->post('/update-patients/(:num)', "Patients::updatePatients/$1");

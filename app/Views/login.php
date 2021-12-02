@@ -32,10 +32,12 @@
                             </div>
                             <form class="user" action="<?= base_url('login'); ?>" method="POST">
                                 <div class="form-group">
-                                    <input name="email" type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                                    <input name="email" type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Email Address">
                                     <div class="mt-1 text-danger text-lowercase" role="alert">
                                         <?php if (!empty(session()->getFlashdata('error_email'))) : ?>
                                             <?= session()->getFlashdata('error_email'); ?>
+                                        <?php elseif (isset($validation)) : ?>
+                                            <?= $validation->getError('email'); ?>
                                         <?php endif;  ?>
                                     </div>
                                 </div>
@@ -44,6 +46,8 @@
                                     <div class="mt-1 text-danger text-lowercase" role="alert">
                                         <?php if (!empty(session()->getFlashdata('error_password'))) : ?>
                                             <?= session()->getFlashdata('error_password'); ?>
+                                        <?php elseif (isset($validation)) : ?>
+                                            <?= $validation->getError('password'); ?>
                                         <?php endif;  ?>
                                     </div>
                                 </div>

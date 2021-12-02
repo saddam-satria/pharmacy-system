@@ -40,8 +40,10 @@ class Users extends BaseController
     }
     public function loginAction()
     {
-        if (!$this->request->getPost()) return redirect()->to('login');
-
+        helper('form');
+        $data = array("title" => "Login", "validation" => $this->validator);
+        if (!$this->request->getPost()) return redirect()->to(base_url('login'));
+        if (!$this->validate($this->rules)) return view("login", array("title" => "Login", "validation" => $this->validator));
         $userInput = array("email" => $this->request->getVar('email'), "password" => $this->request->getVar('password'));
         $user = $this->UsersModel->where('email', $userInput['email'])->first();
 
@@ -68,5 +70,15 @@ class Users extends BaseController
             return redirect()->to(base_url('register'))->with('success', 'success update patients');
         }
         return redirect()->to(base_url('/register'));
+    }
+    public function deleteUsers(string $id)
+    {
+        if (empty($id)) return redirect()->to(base_url('users'));
+
+
+        $result = $this->UsersModel->delete(array('id' => $id));
+        if (!$result) return redirect()->to(base_url('users'))->with('error', "somethings wrong");
+
+        return redirect()->to(base_url('users'))->with("success", "success remove user");
     }
 }
