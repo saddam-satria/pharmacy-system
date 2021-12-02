@@ -18,25 +18,56 @@
                     <div class="col-lg-12">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Register</h1>
+                                <h1 class="h4 text-gray-900 mb-4"><?= $title ?></h1>
                             </div>
-                            <form class="user" action="<?= base_url('login'); ?>" method="POST">
+                            <form class="user" action="<?= base_url('register'); ?>" method="POST">
                                 <div class="form-group">
-                                    <input name="name" type="text" class="form-control form-control-user" id="exampleInputName" placeholder="Name">
-                                </div>
-                                <div class="form-group">
-                                    <input name="email" type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
-                                </div>
-                                <div class="form-group">
-                                    <input name="phone" type="text" class="form-control form-control-user" id="exampleInputPhone" placeholder="Phone Number">
-                                </div>
-                                <div class="form-group">
-                                    <input name="password" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                                    <input value="<?= set_value('name'); ?>" name="name" type="text" class="form-control form-control-user" placeholder="Name">
+                                    <div class="mt-1 text-danger text-lowercase" role="alert">
+                                        <?php if (isset($validation)) : ?>
+                                            <?= $validation->getError("name"); ?>
+                                        <?php endif;  ?>
+                                    </div>
                                 </div>
 
-                                <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                    Login
-                                </a>
+                                <div class="form-group">
+                                    <input value="<?= set_value('email'); ?>" name="email" type="text" class="form-control form-control-user" aria-describedby="emailHelp" placeholder="Email Address">
+                                    <div class="mt-1 text-danger text-lowercase" role="alert">
+                                        <?php if (isset($validation)) : ?>
+                                            <?= $validation->getError("email"); ?>
+                                        <?php endif;  ?>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input value="<?= set_value('phone'); ?>" name="phone" type="text" class="form-control form-control-user" placeholder="Phone Number">
+                                    <div class="mt-1 text-danger text-lowercase" role="alert">
+                                        <?php if (isset($validation)) : ?>
+                                            <?= $validation->getError("phone"); ?>
+                                        <?php endif;  ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <input name="password" type="password" class="form-control form-control-user" placeholder="Password">
+                                    <div class="mt-1 text-danger text-lowercase" role="alert">
+                                        <?php if (isset($validation)) : ?>
+                                            <?= $validation->getError("password"); ?>
+                                        <?php endif;  ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <input name="confirm-password" type="password" class="form-control form-control-user" placeholder="Confirm Password">
+                                    <div class="mt-1 text-danger text-lowercase" role="alert">
+                                        <?php if (isset($validation)) : ?>
+                                            <?= $validation->getError("confirm-password"); ?>
+                                        <?php endif;  ?>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-user btn-block">
+                                    Register
+                                </button>
                             </form>
                             <hr>
 
