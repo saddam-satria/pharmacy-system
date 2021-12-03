@@ -70,6 +70,7 @@ class Users extends BaseController
         )
         </script>");
 
+        // add session 
         return redirect()->to(base_url('login'))->with('success', "<script>Swal.fire(
             'login success ',
             '',
