@@ -79,6 +79,11 @@ class Users extends BaseController
 
 
         $this->session->set("user_data", array('id' => $user['id'], "email" => $user['email'], "role" => $user['role']));
+        if ($user['role'] == "admin") {
+            return redirect()->to(base_url('dashboard'));
+        } elseif ($user['role'] == 'user') {
+            return redirect()->to(base_url('user-page'));
+        }
     }
     public function registerAction()
     {
@@ -124,9 +129,5 @@ class Users extends BaseController
             'success'
         )
         </script>");
-    }
-    public function authorizationUser(string $role)
-    {
-        if ($role == "admin") return redirect()->to(base_url('dashboard'));
     }
 }

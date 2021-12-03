@@ -20,6 +20,7 @@ class Filters extends BaseConfig
         'toolbar'  => DebugToolbar::class,
         'honeypot' => Honeypot::class,
         'authenticate' => \App\Filters\Authenticate::class,
+        'authorization' => \App\Filters\Authorization::class,
         "valid_login" => \App\Filters\ValidLogin::class,
     ];
 

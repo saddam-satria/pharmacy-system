@@ -34,6 +34,13 @@ class Authenticate implements FilterInterface
             'error'
         )
         </script>");
+
+        if (!empty($resultSession) && $resultSession['role'] != 'admin') return redirect()->to(base_url('user-page'))->with('error', "<script>Swal.fire(
+            'You  are not admin ',
+            '',
+            'error'
+        )
+        </script>");
     }
 
     /**

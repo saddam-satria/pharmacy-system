@@ -6,7 +6,7 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class ValidLogin implements FilterInterface
+class Authorization implements FilterInterface
 {
     /**
      * Do whatever processing this filter needs to do.
@@ -26,10 +26,16 @@ class ValidLogin implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         $session = \Config\Services::session();
-        $resultSession = $session->get("user_data");
+        $resultSession = $session->get('user_data');
 
-        if (!empty($resultSession)) return redirect()->to(base_url($resultSession['role'] == 'admin' ? "dashboard" : 'user-page'))->with('error', "<script>Swal.fire(
-            'Already Login ',
+        if (empty($resultSession)) return redirect()->to(base_url('login'))->with('error', "<script>Swal.fire(
+            'login first ',
+            '',
+            'error'
+        )
+        </script>");
+        if (!empty($resultSession) && $resultSession['role'] != 'user') return redirect()->to(base_url('dashboard'))->with('error', "<script>Swal.fire(
+            'Only user can access ',
             '',
             'error'
         )

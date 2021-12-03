@@ -64,7 +64,6 @@ $routes->group('', ["filter" => "authenticate"], function ($routes) {
     $routes->get('/add-medicines', "Admin::renderFormAddMedicines");
     $routes->get('/update-medicines/(:num)', "Admin::renderFormUpdateMedicines/$1");
 
-    $routes->get('/user-page', "Users::renderUserPage");
 
 
     // Controllers
@@ -77,10 +76,10 @@ $routes->group('', ["filter" => "authenticate"], function ($routes) {
     $routes->post('/update-medicines/(:num)', "Medicines::updateMedicines/$1");
 
     $routes->get('/remove-users/(:num)', 'Users::deleteUsers/$1');
-    $routes->get('/auth/(:any)', "Users::authorizationUser/$1");
 });
 
 
+$routes->get('/user-page', "Users::renderUserPage", ["filter" => "authorization"]);
 
 
 
