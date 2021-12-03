@@ -41,14 +41,21 @@ class Users extends BaseController
     public function loginAction()
     {
         helper('form');
-        $data = array("title" => "Login", "validation" => $this->validator);
+
+        if (!$this->validate(array("email" => "required", "password" => "required"))) return redirect()->to(base_url('login'))->with("error", "<script>Swal.fire(
+            'form cannot be empty',
+            'Try again',
+            'error'
+        )
+        </script>");
+
         if (!$this->request->getPost()) return redirect()->to(base_url('login'));
         $userInput = array("email" => $this->request->getVar('email'), "password" => $this->request->getVar('password'));
         $user = $this->UsersModel->where('email', $userInput['email'])->first();
 
-        if (empty($user)) return redirect()->to(base_url('login'))->with('error_email', "<script>Swal.fire(
+        if (empty($user)) return redirect()->to(base_url('login'))->with('error', "<script>Swal.fire(
             'email not found ',
-            '',
+            'Try Again',
             'error'
         )
         </script>");
@@ -56,9 +63,9 @@ class Users extends BaseController
 
         $result = password_verify($userInput['password'], $user['password']);
 
-        if (!$result) return redirect()->to(base_url('login'))->with('error_password', "<script>Swal.fire(
+        if (!$result) return redirect()->to(base_url('login'))->with('error', "<script>Swal.fire(
             'wrong password ',
-            '',
+            'Try again',
             'error'
         )
         </script>");

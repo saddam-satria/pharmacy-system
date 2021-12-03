@@ -15,12 +15,10 @@
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                 <?php if (!empty(session()->getFlashdata('success'))) : ?>
-                    <?= session()->getFlashData('success');;
+                    <?= session()->getFlashData('success');
                     ?>
-                <?php elseif (!empty(session()->getFlashdata('error_email'))) : ?>
-                    <?= session()->getFlashdata('error_email'); ?>
-                <?php elseif (!empty(session()->getFlashdata('error_password'))) : ?>
-                    <?= session()->getFlashdata('error_password'); ?>
+                <?php elseif (!empty(session()->getFlashdata('error'))) : ?>
+                    <?= session()->getFlashdata('error'); ?>
                 <?php endif; ?>
                 <div class="row">
                     <div class="col-lg-12">
@@ -30,12 +28,10 @@
                             </div>
                             <form class="user" action="<?= base_url('login'); ?>" method="POST">
                                 <div class="form-group">
-                                    <input name="email" type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Email Address">
-
+                                    <input name="email" type="text" class="form-control form-control-user" placeholder="Email Address">
                                 </div>
                                 <div class="form-group">
                                     <input name="password" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
-
                                 </div>
 
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
