@@ -81,6 +81,7 @@ $routes->group('', ["filter" => "authenticate"], function ($routes) {
 
 $routes->get('/user-page', "Users::renderUserPage", ["filter" => "authorization"]);
 $routes->get('/logout', "Users::logout");
+$routes->get('/user-page/show-profile/(:num)', "Users::showProfile/$1");
 
 
 

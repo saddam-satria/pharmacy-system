@@ -148,4 +148,23 @@ class Users extends BaseController
         )
         </script>");
     }
+    public function showProfile(string $id)
+    {
+        helper('form');
+        if (empty($this->session->get('user_data'))) return redirect()->to(base_url('login'))->with('error', "<script>Swal.fire(
+            'Login First ',
+            '',
+            'error'
+        )
+        </script>");
+        $user = $this->UsersModel->find(array('id' => $id));
+        if (!$user) return redirect()->to(base_url('users'))->with('error', "<script>Swal.fire(
+            'user not found ',
+            '',
+            'error'
+        )
+        </script>");
+
+        return view('show_profile', array('title' => "Show Profile", "user" => $user[0]));
+    }
 }
