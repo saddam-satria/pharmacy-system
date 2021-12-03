@@ -7,7 +7,7 @@
     <?= $this->include('layouts/components/headerForm'); ?>
     <div class="row">
         <div class="col-md-6">
-            <form action="<?= base_url('user-page/show-profile/' . $user['id']) ?>" method="POST">
+            <form action="<?= base_url('user-page/update-profile/' . $user['id']) ?>" method="POST">
 
                 <div class="mb-1 text-danger text-capitalize " role="alert">
                     <?php if (!empty(session()->getFlashdata('error'))) : ?>
@@ -40,7 +40,7 @@
 
                 <div class="mb-3">
                     <label for="phone_number" class="form-label">Phone Number</label>
-                    <input value="<?= $user['phone_number'] ?>" type="text" name="phone_number" class="form-control" id="phone_number" aria-describedby="phone_number">
+                    <input value="<?= $user['phone_number'] ?>" type="text" name="phone" class="form-control" id="phone_number" aria-describedby="phone_number">
                     <div class="mt-1 text-danger text-lowercase" role="alert">
                         <?php if (isset($validation)) : ?>
                             <?= $validation->getError("phone_number"); ?>
@@ -54,6 +54,26 @@
                     <div class="mt-1 text-danger text-lowercase" role="alert">
                         <?php if (isset($validation)) : ?>
                             <?= $validation->getError("role"); ?>
+                        <?php endif;  ?>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">New Password</label>
+                    <input type="password" name="password" class="form-control" id="password" aria-describedby="password">
+                    <div class="mt-1 text-danger text-lowercase" role="alert">
+                        <?php if (isset($validation)) : ?>
+                            <?= $validation->getError("password"); ?>
+                        <?php endif;  ?>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="confirm-password" class="form-label">Confirm New Password</label>
+                    <input type="password" name="confirm-password" class="form-control" id="confirm-password" aria-describedby="confirm-password">
+                    <div class="mt-1 text-danger text-lowercase" role="alert">
+                        <?php if (isset($validation)) : ?>
+                            <?= $validation->getError("confirm-password"); ?>
                         <?php endif;  ?>
                     </div>
                 </div>

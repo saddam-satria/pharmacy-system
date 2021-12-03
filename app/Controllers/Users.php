@@ -15,7 +15,7 @@ class Users extends BaseController
             "name" => ["rules" => "required", "errors" => ["required" => "Please, fill name"]],
             "email" => ["rules" => "required|valid_email|is_unique[users_data.email]", "errors" => ["is_unique" => "Email already exist", "required" => "Please, fill email", "valid_email" => "email must be valid"]],
             "phone" => ["rules" => "required|numeric|is_unique[users_data.phone_number]", "errors" => ["is_unique" => "Phone number already exist ", "required" => "Please, fill phone number", "numeric" => "phone number must be number"]],
-            "password" => ["rules" => "required|min_length[8]|max_length[26]|regex_match[/^([A-Z]{1})([\d\D\w\W]+)$/]", "errors" => ["required" => "Please, fill passwrd", "min_length" => "password minimal 8 characters", "max_length" => "password maximum 26 characters", "regex_match" => "the first word must capital"]],
+            "password" => ["rules" => "required|min_length[8]|max_length[26]|regex_match[/^([A-Z]{1})([\d\D\w\W]+)$/]", "errors" => ["required" => "Please, fill password", "min_length" => "password minimal 8 characters", "max_length" => "password maximum 26 characters", "regex_match" => "the first word must capital"]],
             "confirm-password" => ["rules" => "required|matches[password]", "errors" => ["required" => "Please, fill confirm password", "matches" => "confirm password doesn't same with password"]],
         ];
         $this->UsersModel = new UsersModel();
@@ -166,5 +166,64 @@ class Users extends BaseController
         </script>");
 
         return view('show_profile', array('title' => "Show Profile", "user" => $user[0]));
+    }
+    public function updateProfile(string $id)
+    {
+        helper('form');
+        if (empty($this->session->get('user_data'))) return redirect()->to(base_url('login'))->with('error', "<script>Swal.fire(
+            'Login First ',
+            '',
+            'error'
+        )
+        </script>");
+        $user = $this->UsersModel->find(array('id' => $id));
+        if (!$user) return redirect()->to(base_url('users'))->with('error', "<script>Swal.fire(
+                'user not found ',
+                '',
+                'error'
+            )
+            </script>");
+
+        return view('update_profile', array('title' => "Update Profile", "user" => $user[0]));
+    }
+
+    public function updateProfileAction(string $id)
+    {
+
+
+        if (empty($this->session->get('user_data'))) return redirect()->to(base_url('login'))->with('error', "<script>Swal.fire(
+            'Login First ',
+            '',
+            'error'
+        )
+        </script>");
+
+        $user = $this->UsersModel->find(array('id' => $id));
+
+        if (empty($id) && !$this->request->getPost()) return redirect()->to(base_url('user-page/update-profile/' . $user['id']));
+
+        if (!$this->validate($this->rules)) return view('update_profile', array('title' => "Update Profile", "user" => $user[0], "validation" => $this->validator));
+
+
+        // Bug Issues
+
+        $hashPassword = password_hash($this->request->getVar('password'), PASSWORD_BCRYPT);
+        $newUser =  array("name" => $this->request->getVar('name'), "email" => $this->request->getVar('email'), "phone_number" => $this->request->getVar('phone'), "password" => $hashPassword, "updated_at" => date("Y-m-d H:i:s"));
+
+        $result =  $this->UsersModel->update(array("id" => $id), $newUser);
+
+        if (!$result) return redirect()->to(base_url('user-page/update-profile/' . $user['id']))->with("error", "<script>Swal.fire(
+            'somethings wrong',
+            '',
+            'error'
+        )
+        </script>");
+
+        return redirect()->to(base_url('user-page/update-profile/' . $user['id']))->with("error", "<script>Swal.fire(
+            'success update profile',
+            '',
+            'success'
+        )
+        </script>");
     }
 }
