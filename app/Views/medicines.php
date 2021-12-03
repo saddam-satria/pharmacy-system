@@ -7,21 +7,9 @@
     <?= $this->include('layouts/components/headerTable') ?>
 
     <?php if (!empty(session()->getFlashdata('success'))) : ?>
-        <?= "<script>
-                Swal.fire(
-                    'success remove medicine',
-                    '',
-                    'success'
-                )
-                </script>" ?>
+        <?= session()->getFlashdata('success'); ?>
     <?php elseif (!empty(session()->getFlashdata('error'))) : ?>
-        <?= "<script>
-                Swal.fire(
-                    'somethings wrong',
-                    '',
-                    'error'
-                )
-                </script>" ?>
+        <?= session()->getFlashdata('error') ?>
     <?php endif; ?>
 
     <!-- DataTales Example -->

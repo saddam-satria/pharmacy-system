@@ -7,21 +7,9 @@
     <?= $this->include('layouts/components/headerTable') ?>
 
     <?php if (!empty(session()->getFlashdata('success'))) : ?>
-        <?= "<script>
-            Swal.fire(
-                'success remove user',
-                '',
-                'success'
-            )
-            </script>" ?>
+        <?= session()->getFlashdata('success') ?>
     <?php elseif (!empty(session()->getFlashdata('error'))) : ?>
-        <?= "<script>
-            Swal.fire(
-                'somethings wrong',
-                '',
-                'error'
-            )
-            </script>" ?>
+        <?= session()->getFlashdata('error') ?>
     <?php endif; ?>
 
     <!-- DataTales Example -->
@@ -38,6 +26,7 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Phone Number</th>
+                            <th>Role</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -51,6 +40,7 @@
                                     <td><?= $user['name'] ?></td>
                                     <td><?= $user['email'] ?></td>
                                     <td><?= $user['phone_number'] ?></td>
+                                    <td><?= $user['role'] ?></td>
                                     <td>
                                         <a href="<?= base_url('remove-users/' . $user['id']) ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
                                     </td>

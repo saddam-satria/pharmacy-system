@@ -9,25 +9,14 @@
         <div class="col-md-6">
             <form action="<?= base_url('update-patients/' . $patients[0]['id']) ?>" method="POST">
                 <div class="mb-1 text-danger text-capitalize " role="alert">
+
                     <?php if (!empty(session()->getFlashdata('error'))) : ?>
-                        <?= "<script>
-                        Swal.fire(
-                            'Somethings error',
-                            '',
-                            'error'
-                        )
-                        </script> "; ?>
+                        <?= session()->getFlashdata('error'); ?>
+                    <?php elseif (!empty(session()->getFlashdata('success'))) : ?>
+                        <?= session()->getFlashdata('success'); ?>
                     <?php endif;  ?>
+
                 </div>
-                <?php if (!empty(session()->getFlashdata('success'))) : ?>
-                    <?= "<script>
-                        Swal.fire(
-                            'success update patient',
-                            '',
-                            'success'
-                        )
-                        </script> "; ?>
-                <?php endif; ?>
                 <div class="mb-3">
                     <label for="patients-id" class="form-label">Patient ID</label>
                     <input value="<?= $patients[0]['id_patient']; ?>" type="text" name="patients-id" class="form-control" id="patients-id" aria-describedby="patients-id" readonly>
@@ -36,8 +25,8 @@
                     <label for="patients-name" class="form-label">Patient Name</label>
                     <input value="<?= $patients[0]['name']; ?>" type="text" name="patients-name" class="form-control" id="patients-name" aria-describedby="patients-name">
                     <div class="mt-1 text-danger text-lowercase" role="alert">
-                        <?php if (!empty(session()->getFlashdata('validation'))) : ?>
-                            <?= session()->getFlashdata('validation'); ?>
+                        <?php if (isset($validation)) : ?>
+                            <?= $validation->getError("patients-name"); ?>
                         <?php endif;  ?>
                     </div>
                 </div>

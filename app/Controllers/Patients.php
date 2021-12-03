@@ -25,55 +25,67 @@ class Patients extends BaseController
     public function addPatients()
     {
         helper("form");
-        if ($this->validate($this->rules)) {
-            if ($this->request->getPost()) {
-                $patients = ["id_patient" => uniqid("patients-"), "name" => $this->request->getVar('patients-name'), "age" => $this->request->getVar('patients-age'), "address" => $this->request->getVar('patients-address'), "diseases" => $this->request->getVar('patients-diseases'), "last_visited" => $this->request->getVar('last-visited'), "next_visited" => $this->request->getVar('next-visited')];
-                // add to db
+        if (!$this->validate($this->rules)) return view('add_patients', ["title" => "Add Patients", "validation" => $this->validator]);
 
-                $result = $this->PatientsModel->insert($patients);
-                if ($result) {
-                    return redirect()->to(base_url('/add-patients'))->with("success", "success create a new patient");
-                } else {
-                    return redirect()->to(base_url('/add-patients'))->with("error", "somethings wrong");
-                }
-                // return view('add_patients', ["title" => "Add Patients", "validation" => $this->validator]);
-            } else {
-                return redirect()->to(base_url('/add-patients'));
-            }
-        } else {
-            return view('add_patients', ["title" => "Add Patients", "validation" => $this->validator]);
-        }
+        if (!$this->request->getPost()) return redirect()->to(base_url('/add-patients'));
+
+        $patients = ["id_patient" => uniqid("patients-"), "name" => $this->request->getVar('patients-name'), "age" => $this->request->getVar('patients-age'), "address" => $this->request->getVar('patients-address'), "diseases" => $this->request->getVar('patients-diseases'), "last_visited" => $this->request->getVar('last-visited'), "next_visited" => $this->request->getVar('next-visited')];
+
+        $result = $this->PatientsModel->insert($patients);
+        if (!$result) return redirect()->to(base_url('/add-patients'))->with("error", "<script>Swal.fire(
+            'somethings wrong ',
+            '',
+            'error'
+        )
+        </script>");
+
+        return redirect()->to(base_url('/add-patients'))->with("success", "<script>Swal.fire(
+            'success create new patient ',
+            '',
+            'success'
+        )
+        </script>");
     }
     public function removePatients(string $id)
     {
-        if (!empty($id)) {
-            // Running
-            $result = $this->PatientsModel->delete(array("id" => $id));
-            if ($result) {
-                return redirect()->to(base_url('/patients'))->with('success', "success remove patient");
-            }
-            return redirect()->to(base_url('/patient'))->with('error', "error remove patient");
-        } else {
-            return redirect()->to(base_url('/patients'));
-        }
+        if (empty($id)) return redirect()->to(base_url('/patients'));
+
+        // Running
+        $result = $this->PatientsModel->delete(array("id" => $id));
+        if (!$result) return redirect()->to(base_url('/patient'))->with('error', "<script>Swal.fire(
+                'somethings wrong ',
+                '',
+                'error'
+            )
+            </script>");
+        return redirect()->to(base_url('/patients'))->with('success', "<script>Swal.fire(
+                'success remove patient ',
+                '',
+                'success'
+            )
+            </script>");
     }
     public function updatePatients(string $id)
     {
         helper('form');
-        if (!empty($id) && $this->request->getPost()) {
-            if ($this->validate($this->rules)) {
-                $updatePatients = ["name" => $this->request->getVar('patients-name'), "age" => $this->request->getVar('patients-age'), "address" => $this->request->getVar('patients-address'), "diseases" => $this->request->getVar('patients-diseases'), "last_visited" => $this->request->getVar('last-visited'), "next_visited" => $this->request->getVar('next-visited')];
-                $result = $this->PatientsModel->update(array("id" => $id), $updatePatients);
-                if (!$result) {
-                    return redirect()->to(base_url('update-patients/' . $id))->with("error", "somethings wrong");
-                }
-                return redirect()->to(base_url('update-patients/' . $id))->with('success', 'success update patients');
-            } else {
-                $patients = $this->PatientsModel->find(array('id' => $id));
-                return view('update_patients', ["title" => "Update Patients", "validation" => $this->validator, "patients" => $patients]);
-            }
-            // $result = $this->PatientsModel->set($id, $updatePatients);
 
-        }
+        if (empty($id) && !$this->request->getPost()) return redirect()->to(base_url('patients'));
+        if (!$this->validate($this->rules)) return view('update_patients', ["title" => "Update Patients", "validation" => $this->validator, "patients" => $this->PatientsModel->find(array('id' => $id))]);
+
+        $updatePatients = ["name" => $this->request->getVar('patients-name'), "age" => $this->request->getVar('patients-age'), "address" => $this->request->getVar('patients-address'), "diseases" => $this->request->getVar('patients-diseases'), "last_visited" => $this->request->getVar('last-visited'), "next_visited" => $this->request->getVar('next-visited')];
+        $result = $this->PatientsModel->update(array("id" => $id), $updatePatients);
+        if (!$result) return redirect()->to(base_url('update-patients/' . $id))->with("error", "<script>Swal.fire(
+            'somethings wrong',
+            '',
+            'error'
+        )
+        </script>");
+
+        return redirect()->to(base_url('update-patients/' . $id))->with('success', "<script>Swal.fire(
+            'success update patient ',
+            '',
+            'success'
+        )
+        </script>");
     }
 }

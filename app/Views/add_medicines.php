@@ -8,24 +8,13 @@
     <div class="row">
         <div class="col-md-6">
             <form action="<?= base_url('add-medicines') ?>" method="POST">
+
                 <?php if (!empty(session()->getFlashdata('error'))) : ?>
-                    <?= "<script>
-                        Swal.fire(
-                            'Somethings error',
-                            '',
-                            'error'
-                        )
-                        </script> "; ?>
+                    session()->getFlashdata('error'); ?>
+                <?php elseif (!empty(session()->getFlashdata('success'))) : ?>
+                    <?= session()->getFlashdata('success'); ?>
                 <?php endif;  ?>
-                <?php if (!empty(session()->getFlashdata('success'))) : ?>
-                    <?= "<script>
-                        Swal.fire(
-                            'success create a new medicine',
-                            '',
-                            'success'
-                        )
-                        </script> "; ?>
-                <?php endif; ?>
+
                 <div class="mb-3">
                     <label for="medicine-name" class="form-label">Medicine Name</label>
                     <input value="<?= set_value('medicine-name') ?>" type="text" name="medicine-name" class="form-control" id="medicine-name" aria-describedby="medicine-name">

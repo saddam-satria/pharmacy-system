@@ -8,26 +8,16 @@
     <div class="row">
         <div class="col-md-6">
             <form action="<?= base_url('add-patients') ?>" method="POST">
+
                 <div class="mb-1 text-danger text-capitalize " role="alert">
                     <?php if (!empty(session()->getFlashdata('error'))) : ?>
-                        <?= "<script>
-                        Swal.fire(
-                            'Somethings error',
-                            '',
-                            'error'
-                        )
-                        </script> "; ?>
+                        <?= session()->getFlashdata('error'); ?>
+                    <?php elseif (!empty(session()->getFlashdata('success'))) : ?>
+                        <?= session()->getFlashdata('success'); ?>
                     <?php endif;  ?>
                 </div>
-                <?php if (!empty(session()->getFlashdata('success'))) : ?>
-                    <?= "<script>
-                        Swal.fire(
-                            'success create a new patient',
-                            '',
-                            'success'
-                        )
-                        </script> "; ?>
-                <?php endif; ?>
+
+
                 <div class="mb-3">
                     <label for="patients-name" class="form-label">Patient Name</label>
                     <input value="<?= set_value('patients-name'); ?>" type="text" name="patients-name" class="form-control" id="patients-name" aria-describedby="patients-name">

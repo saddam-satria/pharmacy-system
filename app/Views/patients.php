@@ -14,23 +14,13 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
+
                 <?php if (!empty(session()->getFlashdata('success'))) : ?>
-                    <?= "<script>
-                        Swal.fire(
-                            'success remove patient',
-                            '',
-                            'success'
-                        )
-                        </script>" ?>
+                    <?= session()->getFlashdata('success') ?>
                 <?php elseif (!empty(session()->getFlashdata('error'))) : ?>
-                    <?= "<script>
-                        Swal.fire(
-                            'somethings wrong',
-                            '',
-                            'error'
-                        )
-                        </script>" ?>
+                    <?= session()->getFlashdata('error') ?>
                 <?php endif; ?>
+
                 <table class="table table-borderless table-hover table-light text-dark" id="table-datatables" width="100%" cellspacing="0">
                     <thead>
                         <tr>

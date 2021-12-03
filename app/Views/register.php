@@ -21,24 +21,13 @@
                                 <h1 class="h4 text-gray-900 mb-4"><?= $title ?></h1>
                             </div>
                             <form class="user" action="<?= base_url('register'); ?>" method="POST">
+
                                 <?php if (!empty(session()->getFlashdata('success'))) : ?>
-                                    <?= "<script>
-                                        Swal.fire(
-                                            'register success ',
-                                            '',
-                                            'success'
-                                        )
-                                        </script>" ?>
+                                    <?= session()->getFlashdata('success'); ?>
+                                <?php elseif (!empty(session()->getFlashdata('error'))) : ?>
+                                    <?= session()->getFlashdata('error'); ?>
                                 <?php endif; ?>
-                                <?php if (!empty(session()->getFlashdata('error'))) : ?>
-                                    <?= "<script>
-                                        Swal.fire(
-                                            'somethings wrong',
-                                            '',
-                                            'error'
-                                        )
-                                        </script> "; ?>
-                                <?php endif; ?>
+
                                 <div class="form-group">
                                     <input value="<?= set_value('name'); ?>" name="name" type="text" class="form-control form-control-user" placeholder="Name">
                                     <div class="mt-1 text-danger text-lowercase" role="alert">

@@ -43,15 +43,32 @@ class Users extends BaseController
         helper('form');
         $data = array("title" => "Login", "validation" => $this->validator);
         if (!$this->request->getPost()) return redirect()->to(base_url('login'));
-        if (!$this->validate($this->rules)) return view("login", array("title" => "Login", "validation" => $this->validator));
         $userInput = array("email" => $this->request->getVar('email'), "password" => $this->request->getVar('password'));
         $user = $this->UsersModel->where('email', $userInput['email'])->first();
 
-        if (empty($user)) return redirect()->to('login')->with('error_email', "Email Not Found");
+        if (empty($user)) return redirect()->to(base_url('login'))->with('error_email', "<script>Swal.fire(
+            'email not found ',
+            '',
+            'error'
+        )
+        </script>");
+
 
         $result = password_verify($userInput['password'], $user['password']);
-        if (!$result) return redirect()->to('login')->with('error_password', "Wrong password");
-        return redirect()->to('login')->with('success', "Success");
+
+        if (!$result) return redirect()->to(base_url('login'))->with('error_password', "<script>Swal.fire(
+            'wrong password ',
+            '',
+            'error'
+        )
+        </script>");
+
+        return redirect()->to(base_url('login'))->with('success', "<script>Swal.fire(
+            'login success ',
+            '',
+            'success'
+        )
+        </script>");
     }
     public function registerAction()
     {
@@ -63,11 +80,19 @@ class Users extends BaseController
             $user =  array("name" => $this->request->getVar('name'), "email" => $this->request->getVar('email'), "phone_number" => $this->request->getVar('phone'), "password" => $hashPassword, "created_at" => date("Y-m-d H:i:s"));
             $result = $this->UsersModel->insert($user);
 
+            if (!$result) return redirect()->to(base_url('register'))->with("error", "<script>Swal.fire(
+                'somethings wrong ',
+                '',
+                'error'
+            )
+            </script>");
 
-            // bug cannot show feedback
-            if (!$result) return redirect()->to(base_url('register'))->with("error", "somethings wrong");
-
-            return redirect()->to(base_url('register'))->with('success', 'success update patients');
+            return redirect()->to(base_url('register'))->with('success', "<script>Swal.fire(
+                'register success ',
+                '',
+                'success'
+            )
+            </script>");
         }
         return redirect()->to(base_url('/register'));
     }
@@ -77,8 +102,18 @@ class Users extends BaseController
 
 
         $result = $this->UsersModel->delete(array('id' => $id));
-        if (!$result) return redirect()->to(base_url('users'))->with('error', "somethings wrong");
+        if (!$result) return redirect()->to(base_url('users'))->with('error', "<script>Swal.fire(
+            'error remove user ',
+            '',
+            'error'
+        )
+        </script>");
 
-        return redirect()->to(base_url('users'))->with("success", "success remove user");
+        return redirect()->to(base_url('users'))->with("success", "<script>Swal.fire(
+            'success remove user ',
+            '',
+            'success'
+        )
+        </script>");
     }
 }

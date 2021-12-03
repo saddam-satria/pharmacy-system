@@ -15,14 +15,12 @@
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                 <?php if (!empty(session()->getFlashdata('success'))) : ?>
-                    <?= "<script>
-                        Swal.fire(
-                            'login success ',
-                            '',
-                            'success'
-                        )
-                        </script>"
+                    <?= session()->getFlashData('success');;
                     ?>
+                <?php elseif (!empty(session()->getFlashdata('error_email'))) : ?>
+                    <?= session()->getFlashdata('error_email'); ?>
+                <?php elseif (!empty(session()->getFlashdata('error_password'))) : ?>
+                    <?= session()->getFlashdata('error_password'); ?>
                 <?php endif; ?>
                 <div class="row">
                     <div class="col-lg-12">
@@ -33,23 +31,11 @@
                             <form class="user" action="<?= base_url('login'); ?>" method="POST">
                                 <div class="form-group">
                                     <input name="email" type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Email Address">
-                                    <div class="mt-1 text-danger text-lowercase" role="alert">
-                                        <?php if (!empty(session()->getFlashdata('error_email'))) : ?>
-                                            <?= session()->getFlashdata('error_email'); ?>
-                                        <?php elseif (isset($validation)) : ?>
-                                            <?= $validation->getError('email'); ?>
-                                        <?php endif;  ?>
-                                    </div>
+
                                 </div>
                                 <div class="form-group">
                                     <input name="password" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
-                                    <div class="mt-1 text-danger text-lowercase" role="alert">
-                                        <?php if (!empty(session()->getFlashdata('error_password'))) : ?>
-                                            <?= session()->getFlashdata('error_password'); ?>
-                                        <?php elseif (isset($validation)) : ?>
-                                            <?= $validation->getError('password'); ?>
-                                        <?php endif;  ?>
-                                    </div>
+
                                 </div>
 
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
