@@ -130,4 +130,22 @@ class Users extends BaseController
         )
         </script>");
     }
+    public function logout()
+    {
+        if (empty($this->session->get('user_data'))) return redirect()->to(base_url('login'))->with('error', "<script>Swal.fire(
+            'Login First ',
+            '',
+            'error'
+        )
+        </script>");
+
+        $this->session->remove('user_data');
+
+        return redirect()->to(base_url('login'))->with('error', "<script>Swal.fire(
+            'Logout success ',
+            '',
+            'success'
+        )
+        </script>");
+    }
 }
