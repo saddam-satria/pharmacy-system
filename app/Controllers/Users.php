@@ -8,7 +8,7 @@ class Users extends BaseController
 {
     protected $rules;
     protected $UsersModel;
-
+    protected $session;
     public function __construct()
     {
         $this->rules = [
@@ -19,11 +19,19 @@ class Users extends BaseController
             "confirm-password" => ["rules" => "required|matches[password]", "errors" => ["required" => "Please, fill confirm password", "matches" => "confirm password doesn't same with password"]],
         ];
         $this->UsersModel = new UsersModel();
+        $this->session = \Config\Services::session();
+        $this->session->start();
+    }
+
+    public function renderUserPage()
+    {
+        return view('user_page', array('title' => "User Page"));
     }
 
     public function renderLogin()
     {
         helper('form');
+
         $data = ["title" => "Login"];
         return view('login', $data);
     }
@@ -41,7 +49,6 @@ class Users extends BaseController
     public function loginAction()
     {
         helper('form');
-
         if (!$this->validate(array("email" => "required", "password" => "required"))) return redirect()->to(base_url('login'))->with("error", "<script>Swal.fire(
             'form cannot be empty',
             'Try again',
@@ -70,13 +77,8 @@ class Users extends BaseController
         )
         </script>");
 
-        // add session 
-        return redirect()->to(base_url('login'))->with('success', "<script>Swal.fire(
-            'login success ',
-            '',
-            'success'
-        )
-        </script>");
+
+        $this->session->set("user_data", array('id' => $user['id'], "email" => $user['email'], "role" => $user['role']));
     }
     public function registerAction()
     {
@@ -108,7 +110,6 @@ class Users extends BaseController
     {
         if (empty($id)) return redirect()->to(base_url('users'));
 
-
         $result = $this->UsersModel->delete(array('id' => $id));
         if (!$result) return redirect()->to(base_url('users'))->with('error', "<script>Swal.fire(
             'error remove user ',
@@ -123,5 +124,9 @@ class Users extends BaseController
             'success'
         )
         </script>");
+    }
+    public function authorizationUser(string $role)
+    {
+        if ($role == "admin") return redirect()->to(base_url('dashboard'));
     }
 }

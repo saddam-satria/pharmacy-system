@@ -32,39 +32,59 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
-// Views
+
+
 $routes->get('/', 'Home::index');
-$routes->get('/login', 'Users::renderLogin');
-$routes->get('/register', "Users::renderRegister");
-$routes->get('/forgot-password', 'Users::renderForgotPassword');
+
+$routes->group('', ['filter' => 'valid_login'], function ($routes) {
+    // Views
+    $routes->get('/login', 'Users::renderLogin');
+    $routes->get('/register', "Users::renderRegister");
+    $routes->get('/forgot-password', 'Users::renderForgotPassword');
+
+    // controllers
+    $routes->post('/login', "Users::loginAction");
+    $routes->post('/register', "Users::registerAction");
+});
+
 
 
 // dashboard admin
-$routes->get('/dashboard',  'Admin::index');
-$routes->get('/patients', 'Admin::renderPatients');
-$routes->get('/add-patients', "Admin::renderFormAddPatients");
-$routes->get('/update-patients/(:num)', "Admin::renderFormUpdatePatients/$1");
+$routes->group('', ["filter" => "authenticate"], function ($routes) {
+    // Views
+    $routes->get('/dashboard',  'Admin::index');
 
-$routes->get('/users', 'Admin::renderUsers');
+    $routes->get('/patients', 'Admin::renderPatients');
+    $routes->get('/add-patients', "Admin::renderFormAddPatients");
+    $routes->get('/update-patients/(:num)', "Admin::renderFormUpdatePatients/$1");
 
-$routes->get('/medicines', 'Admin::renderMedicines');
-$routes->get('/add-medicines', "Admin::renderFormAddMedicines");
-$routes->get('/update-medicines/(:num)', "Admin::renderFormUpdateMedicines/$1");
+    $routes->get('/users', 'Admin::renderUsers');
+
+    $routes->get('/medicines', 'Admin::renderMedicines');
+    $routes->get('/add-medicines', "Admin::renderFormAddMedicines");
+    $routes->get('/update-medicines/(:num)', "Admin::renderFormUpdateMedicines/$1");
+
+    $routes->get('/user-page', "Users::renderUserPage");
 
 
-// Controllers
-$routes->post('/login', "Users::loginAction");
-$routes->post('/register', "Users::registerAction");
-$routes->get('/remove-users/(:num)', 'Users::deleteUsers/$1');
+    // Controllers
+    $routes->post('/add-patients', "Patients::addPatients");
+    $routes->get('/remove-patients/(:num)', "Patients::removePatients/$1");
+    $routes->post('/update-patients/(:num)', "Patients::updatePatients/$1");
+
+    $routes->post('/add-medicines', "Medicines::addMedicines");
+    $routes->get('/remove-medicines/(:num)', "Medicines::deleteMedicines/$1");
+    $routes->post('/update-medicines/(:num)', "Medicines::updateMedicines/$1");
+
+    $routes->get('/remove-users/(:num)', 'Users::deleteUsers/$1');
+    $routes->get('/auth/(:any)', "Users::authorizationUser/$1");
+});
 
 
-$routes->post('/add-patients', "Patients::addPatients");
-$routes->get('/remove-patients/(:num)', "Patients::removePatients/$1");
-$routes->post('/update-patients/(:num)', "Patients::updatePatients/$1");
 
-$routes->post('/add-medicines', "Medicines::addMedicines");
-$routes->get('/remove-medicines/(:num)', "Medicines::deleteMedicines/$1");
-$routes->post('/update-medicines/(:num)', "Medicines::updateMedicines/$1");
+
+
+
 
 
 /*
