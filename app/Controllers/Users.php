@@ -200,26 +200,26 @@ class Users extends BaseController
 
         $user = $this->UsersModel->find(array('id' => $id));
 
-        if (empty($id) && !$this->request->getPost()) return redirect()->to(base_url('user-page/update-profile/' . $user['id']));
+        if (empty($id) && !$this->request->getPost()) return redirect()->to(base_url('user-page/update-profile/' . $user[0]['id']));
+
+        $this->rules['email'] =  ["rules" => "required|valid_email", "errors" => ["required" => "Please, fill email", "valid_email" => "email must be valid"]];
+        $this->rules['phone'] = ["rules" => "required|numeric", "errors" => ["required" => "Please, fill phone number", "numeric" => "phone number must be number"]];
 
         if (!$this->validate($this->rules)) return view('update_profile', array('title' => "Update Profile", "user" => $user[0], "validation" => $this->validator));
-
-
-        // Bug Issues
 
         $hashPassword = password_hash($this->request->getVar('password'), PASSWORD_BCRYPT);
         $newUser =  array("name" => $this->request->getVar('name'), "email" => $this->request->getVar('email'), "phone_number" => $this->request->getVar('phone'), "password" => $hashPassword, "updated_at" => date("Y-m-d H:i:s"));
 
         $result =  $this->UsersModel->update(array("id" => $id), $newUser);
 
-        if (!$result) return redirect()->to(base_url('user-page/update-profile/' . $user['id']))->with("error", "<script>Swal.fire(
+        if (!$result) return redirect()->to(base_url('user-page/update-profile/' . $user[0]['id']))->with("error", "<script>Swal.fire(
             'somethings wrong',
             '',
             'error'
         )
         </script>");
 
-        return redirect()->to(base_url('user-page/update-profile/' . $user['id']))->with("error", "<script>Swal.fire(
+        return redirect()->to(base_url('user-page/update-profile/' . $user[0]['id']))->with("error", "<script>Swal.fire(
             'success update profile',
             '',
             'success'

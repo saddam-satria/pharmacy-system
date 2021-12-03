@@ -7,6 +7,9 @@
     <?= $this->include('layouts/components/headerForm'); ?>
     <div class="row">
         <div class="col-md-6">
+
+            <img src="<?= base_url($user['image_profile']) ?>" width="180" height="180" class="img rounded mb-3" alt="">
+
             <form>
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>

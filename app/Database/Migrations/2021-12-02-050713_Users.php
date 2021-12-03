@@ -14,6 +14,11 @@ class Users extends Migration
                 "auto_increment" => true,
                 "null" => false,
             ],
+            "image_profile" => [
+                "type" =>  "VARCHAR",
+                "constraint" => 255,
+                "default" => "assets/img/undraw_profile.svg"
+            ],
             "name" => [
                 "type" => "VARCHAR",
                 "constraint" => 150,

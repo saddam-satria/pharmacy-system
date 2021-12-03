@@ -17,6 +17,16 @@
                     <?php endif;  ?>
                 </div>
 
+                <img src="<?= base_url($user['image_profile']) ?>" width="180" height="180" class="img rounded mb-3" alt="">
+
+                <div class="mb-3">
+                    <input type="file" name="image-profile" id="image-profile" aria-describedby="image-profile">
+                    <div class="mt-1 text-danger text-lowercase" role="alert">
+                        <?php if (isset($validation)) : ?>
+                            <?= $validation->getError("image-profile"); ?>
+                        <?php endif;  ?>
+                    </div>
+                </div>
 
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
@@ -43,7 +53,7 @@
                     <input value="<?= $user['phone_number'] ?>" type="text" name="phone" class="form-control" id="phone_number" aria-describedby="phone_number">
                     <div class="mt-1 text-danger text-lowercase" role="alert">
                         <?php if (isset($validation)) : ?>
-                            <?= $validation->getError("phone_number"); ?>
+                            <?= $validation->getError("phone"); ?>
                         <?php endif;  ?>
                     </div>
                 </div>
