@@ -14,7 +14,7 @@ class UsersModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ["image-profile", "name", "email", "phone_number", "password", "role", "created_at", "updated_at"];
+    protected $allowedFields    = ["image_profile", "name", "email", "phone_number", "password", "role", "created_at", "updated_at"];
 
     // Dates
     protected $useTimestamps = false;

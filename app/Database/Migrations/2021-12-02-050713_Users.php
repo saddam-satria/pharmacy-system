@@ -17,7 +17,7 @@ class Users extends Migration
             "image_profile" => [
                 "type" =>  "VARCHAR",
                 "constraint" => 255,
-                "default" => "assets/img/undraw_profile.svg"
+                "default" => "undraw_profile.svg"
             ],
             "name" => [
                 "type" => "VARCHAR",
@@ -44,10 +44,12 @@ class Users extends Migration
                 "null" => true,
             ],
             "created_at" => [
-                "type" => "DATETIME"
+                "type" => "DATETIME",
+                "null" => true
             ],
             "updated_at" => [
-                "type" => "DATETIME"
+                "type" => "DATETIME",
+                "null" => true,
             ]
 
         ]);

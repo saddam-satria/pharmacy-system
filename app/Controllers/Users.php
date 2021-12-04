@@ -78,7 +78,7 @@ class Users extends BaseController
         </script>");
 
 
-        $this->session->set("user_data", array('id' => $user['id'], "email" => $user['email'], "role" => $user['role']));
+        $this->session->set("user_data", array('id' => $user['id'], "email" => $user['email'], "role" => $user['role'], "image-profile" => $user['image_profile']));
         if ($user['role'] == "admin") {
             return redirect()->to(base_url('dashboard'));
         } elseif ($user['role'] == 'user') {
@@ -169,12 +169,12 @@ class Users extends BaseController
     }
     public function updateProfile(string $id)
     {
-        helper('form');
         if (empty($this->session->get('user_data'))) return redirect()->to(base_url('login'))->with('error', "<script>Swal.fire(
             'Login First ',
             '',
             'error'
-        )
+            )
+        helper('form');
         </script>");
         $user = $this->UsersModel->find(array('id' => $id));
         if (!$user) return redirect()->to(base_url('users'))->with('error', "<script>Swal.fire(
@@ -195,8 +195,9 @@ class Users extends BaseController
             'Login First ',
             '',
             'error'
-        )
-        </script>");
+            )
+            </script>");
+        helper('form');
 
         $user = $this->UsersModel->find(array('id' => $id));
 
@@ -204,26 +205,42 @@ class Users extends BaseController
 
         $this->rules['email'] =  ["rules" => "required|valid_email", "errors" => ["required" => "Please, fill email", "valid_email" => "email must be valid"]];
         $this->rules['phone'] = ["rules" => "required|numeric", "errors" => ["required" => "Please, fill phone number", "numeric" => "phone number must be number"]];
-
+        $this->rules['image-profile'] = ["rules" => "uploaded[image-profile]|max_size[image-profile,1080]|mime_in[image-profile,image/png, image/jpg,image/jpeg]|ext_in[image-profile,png,jpg,jpeg]", "errors" => []];
         if (!$this->validate($this->rules)) return view('update_profile', array('title' => "Update Profile", "user" => $user[0], "validation" => $this->validator));
 
         $hashPassword = password_hash($this->request->getVar('password'), PASSWORD_BCRYPT);
-        $newUser =  array("name" => $this->request->getVar('name'), "email" => $this->request->getVar('email'), "phone_number" => $this->request->getVar('phone'), "password" => $hashPassword, "updated_at" => date("Y-m-d H:i:s"));
+        $fileImage = $this->request->getFile('image-profile');
+        $imageUpload = $this->uploadImage($fileImage);
+
+        if (!$imageUpload['status']) return redirect()->to(base_url('user-page/update-profile/' . $user[0]['id']))->with('error', "Error when uploading file");
+        $newUser =  array("image_profile" => $imageUpload['filename'], "name" => $this->request->getVar('name'), "email" => $this->request->getVar('email'), "phone_number" => $this->request->getVar('phone'), "password" => $hashPassword, "updated_at" => date("Y-m-d H:i:s"));
 
         $result =  $this->UsersModel->update(array("id" => $id), $newUser);
 
-        if (!$result) return redirect()->to(base_url('user-page/update-profile/' . $user[0]['id']))->with("error", "<script>Swal.fire(
+        if (!$result) return redirect()->to(base_url('user-page/update-profile/' . $id))->with("error", "<script>Swal.fire(
             'somethings wrong',
             '',
             'error'
         )
         </script>");
 
-        return redirect()->to(base_url('user-page/update-profile/' . $user[0]['id']))->with("error", "<script>Swal.fire(
+        $this->session->set("user_data", array('id' => $user[0]['id'], "email" => $newUser['email'], "role" => $user[0]['role'], "image-profile" => $newUser['image_profile']));
+
+        return redirect()->to(base_url('user-page/update-profile/' . $id))->with("error", "<script>Swal.fire(
             'success update profile',
             '',
             'success'
         )
         </script>");
+    }
+    public function uploadImage($file)
+    {
+        if (!$file->isValid() && $file->hasMoved()) return false;
+
+        $userEmail = $this->session->get('user_data')['email'];
+        $fileName =  $userEmail . "-" . date('Ymshis') . ".jpg";
+        $result = $file->move(basename('/public/assets/img/image-profile'), $fileName);
+        if (!$result) return false;
+        return ["status" => true, "filename" => $fileName];
     }
 }

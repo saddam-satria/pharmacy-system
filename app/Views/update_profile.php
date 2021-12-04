@@ -7,7 +7,7 @@
     <?= $this->include('layouts/components/headerForm'); ?>
     <div class="row">
         <div class="col-md-6">
-            <form action="<?= base_url('user-page/update-profile/' . $user['id']) ?>" method="POST">
+            <form class="text-capitalize" enctype="multipart/form-data" accept-charset="utf-8" action="<?= base_url('user-page/update-profile/' . $user['id']) ?>" method="POST">
 
                 <div class="mb-1 text-danger text-capitalize " role="alert">
                     <?php if (!empty(session()->getFlashdata('error'))) : ?>
@@ -17,10 +17,10 @@
                     <?php endif;  ?>
                 </div>
 
-                <img src="<?= base_url($user['image_profile']) ?>" width="180" height="180" class="img rounded mb-3" alt="">
+                <img src="<?= base_url('image-profile/' . $user['image_profile']) ?>" width="180" height="180" class="img rounded mb-3" alt="">
 
                 <div class="mb-3">
-                    <input type="file" name="image-profile" id="image-profile" aria-describedby="image-profile">
+                    <input value="<? set_value('image-profile'); ?>" type="file" name="image-profile" id="image-profile" aria-describedby="image-profile">
                     <div class="mt-1 text-danger text-lowercase" role="alert">
                         <?php if (isset($validation)) : ?>
                             <?= $validation->getError("image-profile"); ?>
