@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 
-use \App\Models\PatientsModel;
-
+use CodeIgniter\Controller;
+use Dompdf\Dompdf;
 
 class Admin extends BaseController
 {
@@ -70,5 +70,32 @@ class Admin extends BaseController
             $data = ['title' => "Update Medicines", "medicines" => $medicines];
             return view('update_medicines', $data);
         }
+    }
+    public function genereteReport(string $type)
+    {
+        $fileName = date('Y-m-d') . "-report-" . $type;
+        $dompdf = new Dompdf();
+
+
+        $datas = [];
+        if ($type == "patients") {
+            $patients = $this->PatientsModel->findAll();
+            $datas['patients'] = array($patients);
+        } elseif ($type == "medicines") {
+            $medicines = $this->MedicinesModel->findAll();
+            $datas['medicines'] = array($medicines);
+        } elseif ($type == "users") {
+            $users = $this->UsersModel->findAll();
+            $datas['users'] = array($users);
+        }
+
+
+        $html = view('generate_pdf', array("title" => $fileName, "datas" => $datas[$type][0], "type" => $type));
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+
+        $dompdf->render();
+
+        $dompdf->stream($fileName);
     }
 }

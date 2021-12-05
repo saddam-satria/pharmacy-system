@@ -65,6 +65,7 @@ $routes->group('', ["filter" => "authenticate"], function ($routes) {
     $routes->get('/update-medicines/(:num)', "Admin::renderFormUpdateMedicines/$1");
 
 
+    $routes->get('/generate-report/(:any)', "Admin::genereteReport/$1");
 
     // Controllers
     $routes->post('/add-patients', "Patients::addPatients");
